@@ -1,0 +1,72 @@
+version: '3.7'
+
+services:
+  backend:
+    container_name: backend_container
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env.production
+
+  frontend-react:
+    container_name: frontend_react_container
+    restart: unless-stopped
+    build:
+      context: ./frontend-react
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend-react/src:/usr/src/app/src
+    ports:
+      - "80:80"
+
+  redis: 
+    container_name: redis_container 
+    restart: unless-stopped
+    image: redis:latest
+    volumes:
+      - hackathon-redis:/data
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    container_name: mongo_container
+    restart: unless-stopped
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - hackathon-mongo:/data/db
+
+  rqworker:
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.worker
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env.production
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    ports:
+      - '9100:9100'
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    network_mode: host
+
+volumes:
+  hackathon-mongo:
+  hackathon-redis:

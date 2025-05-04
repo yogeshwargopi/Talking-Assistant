@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  backend:
+    container_name: backend_container
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env.staging
+
+  frontend-react:
+    container_name: frontend_react_container
+    restart: unless-stopped
+    build:
+      context: ./frontend-react
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend-react/src:/usr/src/app/src
+
+  redis: 
+    container_name: redis_container 
+    restart: unless-stopped
+    image: redis:latest
+    volumes:
+      - hackathon-redis:/data
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    container_name: mongo_container
+    restart: unless-stopped
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - hackathon-mongo:/data/db
+
+  rqworker:
+    restart: unless-stopped
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.worker
+    volumes:
+      - ./backend:/app
+    env_file:
+      - .env.staging
+
+volumes:
+  hackathon-mongo:
+  hackathon-redis:

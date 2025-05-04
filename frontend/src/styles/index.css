@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Geologica:wght@350&display=swap');
+
+@import "tailwindcss";
+
+body {
+    font-family: 'Geologica', sans-serif;
+}
