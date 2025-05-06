@@ -50,7 +50,8 @@ def initGetUserInput(requestBody):
         media_type="audio/mpeg",
         headers={
             "Content-Disposition": "attachment; filename=speech.mp3",
-            "Text-Response": ascii_text_response
+            "Text-Response": ascii_text_response,
+            "Access-Control-Expose-Headers": "Text-Response"
         }
     )
 
