@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   backend:
-    container_name: backend_container
+    container_name: talking-assistant-backend-container
     restart: unless-stopped
     build:
       context: ./backend
@@ -12,43 +12,14 @@ services:
     env_file:
       - .env.staging
 
-  frontend-react:
-    container_name: frontend_react_container
+  frontend:
+    container_name: talking-assistant-stag-frontend-container
     restart: unless-stopped
     build:
-      context: ./frontend-react
+      context: ./frontend
       dockerfile: Dockerfile
-    volumes:
-      - ./frontend-react/src:/usr/src/app/src
-
-  redis: 
-    container_name: redis_container 
-    restart: unless-stopped
-    image: redis:latest
-    volumes:
-      - hackathon-redis:/data
     ports:
-      - "6379:6379"
-
-  mongodb:
-    container_name: mongo_container
-    restart: unless-stopped
-    image: mongo
-    ports:
-      - "27017:27017"
+      - 8001:8001
     volumes:
-      - hackathon-mongo:/data/db
+      - ./frontend/src:/usr/src/app/src
 
-  rqworker:
-    restart: unless-stopped
-    build:
-      context: ./backend
-      dockerfile: Dockerfile.worker
-    volumes:
-      - ./backend:/app
-    env_file:
-      - .env.staging
-
-volumes:
-  hackathon-mongo:
-  hackathon-redis:

@@ -44,7 +44,7 @@ const AvatarViewer = () => {
                     { type: 'user', text: transcript }
                 ]);
 
-                const response = await fetch('http://localhost:7070/getUserInput', {
+                const response = await fetch('/api/getUserInput', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

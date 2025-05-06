@@ -2,7 +2,7 @@ import React, { useRef, useEffect, forwardRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 const Avatar = forwardRef((props, ref) => {
-    const { scene } = useGLTF("../../assets/models/human1.glb");
+    const { scene } = useGLTF("/models/human1.glb");
     const meshRef = useRef();
 
     // Forward the ref to access the mesh

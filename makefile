@@ -1,26 +1,15 @@
 # Define variables
 DOCKER_COMPOSE_STAG=docker compose -f docker-compose-stag.yml
-DOCKER_COMPOSE_PROD=docker compose -f docker-compose-prod.yml
 DOCKER_COMPOSE_LOCAL=docker compose -f docker-compose.yml
-
-# LIVE Commands
-.PHONY: stop
-stop:
-	sudo $(DOCKER_COMPOSE_PROD) down
-
-.PHONY: live
-live:
-	sudo $(DOCKER_COMPOSE_PROD) up -d --build
-
 
 # STAGING Commands
 .PHONY: stop-stag
 stop-stag:
-	sudo $(DOCKER_COMPOSE_STAG) down
+	$(DOCKER_COMPOSE_STAG) down
 
 .PHONY: live-stag
 live-stag:
-	sudo $(DOCKER_COMPOSE_STAG) up -d --build
+	$(DOCKER_COMPOSE_STAG) up -d --build
 
 
 # LOCAL Commands

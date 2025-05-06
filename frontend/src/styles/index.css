@@ -2,10 +2,6 @@
 
 @import "tailwindcss";
 
-@import "tailwindcss/preflight";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
 body {
     font-family: 'Geologica', sans-serif;
 }
