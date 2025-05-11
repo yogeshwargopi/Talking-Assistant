@@ -11,3 +11,4 @@ watchfiles==1.0.4
 websockets==14.2
 groq==0.20.0
 openai==1.65.2
+starlette==0.45.2

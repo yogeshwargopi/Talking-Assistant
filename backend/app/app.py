@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.routes.user.user import router as userRouter
+from app.utils.middleware import AuthenticationMiddleware
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -10,6 +11,8 @@ async def lifespan(app: FastAPI):
     print('Closing the application')
 
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(AuthenticationMiddleware)
 
 origins = ["*"]
 app.add_middleware(

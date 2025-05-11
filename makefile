@@ -9,7 +9,7 @@ stop-stag:
 
 .PHONY: live-stag
 live-stag:
-	$(DOCKER_COMPOSE_STAG) up -d --build
+	$(DOCKER_COMPOSE_STAG) up --build
 
 
 # LOCAL Commands
